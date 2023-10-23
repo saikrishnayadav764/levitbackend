@@ -129,33 +129,33 @@ app.post('/login', async (req, res) => {
 });
 
 
-const storage = multer.diskStorage({
-  destination: './uploads/',
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: './uploads/',
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//   }
+// });
 
 
-const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = [ 'image/png', 'application/pdf'];
-  if (allowedFileTypes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('File type not supported'), false);
-  }
-};
+// const fileFilter = (req, file, cb) => {
+//   const allowedFileTypes = [ 'image/png', 'application/pdf'];
+//   if (allowedFileTypes.includes(file.mimetype)) {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('File type not supported'), false);
+//   }
+// };
 
 
-const upload = multer({ storage, fileFilter });
+// const upload = multer({ storage, fileFilter });
 
-const uploadsPath = path.join(__dirname, 'uploads');
-app.use('/uploads', express.static(uploadsPath));
+// const uploadsPath = path.join(__dirname, 'uploads');
+// app.use('/uploads', express.static(uploadsPath));
 
 
-app.post('/upload', upload.array('files'), (req, res) => {
-  res.status(200).json();
-});
+// app.post('/upload', upload.array('files'), (req, res) => {
+//   res.status(200).json();
+// });
 
 
 
@@ -183,21 +183,21 @@ app.get('/submissions', async (req, res) => {
 });
 
 
-app.get('/filenames', (req, res) => {
-  // Read the contents of the uploads folder
-  fs.readdir(uploadsPath, (err, files) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
-    } else {
-      // Filter out any non-file items (directories, etc.)
-      const filenames = files.filter((file) => {
-        return fs.statSync(path.join(uploadsPath, file)).isFile();
-      });
-      res.status(200).json({ filenames });
-    }
-  });
-});
+// app.get('/filenames', (req, res) => {
+//   // Read the contents of the uploads folder
+//   fs.readdir(uploadsPath, (err, files) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).json({ message: 'Internal server error' });
+//     } else {
+//       // Filter out any non-file items (directories, etc.)
+//       const filenames = files.filter((file) => {
+//         return fs.statSync(path.join(uploadsPath, file)).isFile();
+//       });
+//       res.status(200).json({ filenames });
+//     }
+//   });
+// });
 
 // Start the server
 app.listen(port, () => {
