@@ -8,6 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 const fs = require('fs')
+require('dotenv').config();
 
 const app = express();
 
@@ -58,7 +59,7 @@ const submissionSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 const Submission = mongoose.model('submissions', submissionSchema);
 
-const dbURL = 'mongodb+srv://naruto:naruto@cluster0.be644zi.mongodb.net/db?retryWrites=true&w=majority'; // Change this to your MongoDB URL
+const dbURL = process.env.DB_URL;
 mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 
